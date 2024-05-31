@@ -2,22 +2,23 @@ import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import config from '../../config';
 import { TAcademicSemester } from './academicSemister.interface';
-import { AcademicSemesterCode, AcademicSemesterName, months } from './academicSemiste.constant';
-
-
-
+import {
+  AcademicSemesterCode,
+  AcademicSemesterName,
+  months,
+} from './academicSemiste.constant';
 
 const academicSemesterSchema = new Schema<TAcademicSemester>(
   {
     name: {
       type: String,
       required: true,
-      enum:AcademicSemesterName
+      enum: AcademicSemesterName,
     },
     code: {
       type: String,
       required: true,
-      enum:AcademicSemesterCode
+      enum: AcademicSemesterCode,
     },
     year: {
       type: Date,
@@ -26,12 +27,12 @@ const academicSemesterSchema = new Schema<TAcademicSemester>(
 
     startMonth: {
       type: String,
-      required:true,
+      required: true,
       enum: months,
     },
     endMonth: {
       type: String,
-      required:true,
+      required: true,
       enum: months,
     },
   },

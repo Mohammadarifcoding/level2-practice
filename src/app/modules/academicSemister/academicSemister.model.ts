@@ -21,7 +21,7 @@ const academicSemesterSchema = new Schema<TAcademicSemester>(
       enum: AcademicSemesterCode,
     },
     year: {
-      type: Date,
+      type: String,
       required: true,
     },
 
@@ -57,7 +57,16 @@ const academicSemesterSchema = new Schema<TAcademicSemester>(
 //   doc.password = '';
 //   next();
 // });
+academicSemesterSchema.pre('save', async function (next){
+  const isSemesterExists = await AcademicSemesterModle.findOne({
+    year : this.year,
+    name:this.name
+  })
+  if(isSemesterExists){
+    throw new Error('Semeste already exits')
+  }
 
+})
 export const AcademicSemesterModle = model<TAcademicSemester>(
   'AcademicSemester',
   academicSemesterSchema,

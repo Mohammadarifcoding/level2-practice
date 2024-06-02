@@ -7,12 +7,12 @@ import catchAsync from '../../utils/catchAsync';
 import { AcademicSemesterService } from './academicSemister.service';
 
 const createAcademicSemester: RequestHandler = catchAsync(async (req, res) => {
-  const result = await AcademicSemesterService.createAcademicSemestertoDb();
+  const result = await AcademicSemesterService.createAcademicSemestertoDb(req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student is created succesfully',
+    message: 'Academic Semester is created succesfully',
     data: result,
   });
 });

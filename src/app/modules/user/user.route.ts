@@ -6,11 +6,7 @@ import catchAsync from '../../utils/catchAsync';
 import ValidationMiddleWar from '../../middlewares/ValidRequest';
 import { createStudentValidationSchema } from '../student/student.validation';
 
-
-
 const router = express.Router();
-
-
 
 router.post(
   '/create-student',

@@ -50,5 +50,4 @@ export const createStudentValidationSchema = z.object({
 
 export const StudentValidation = {
   createStudentValidationSchema,
-  
-}
+};

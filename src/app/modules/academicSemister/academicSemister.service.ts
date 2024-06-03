@@ -14,6 +14,17 @@ const createAcademicSemestertoDb = async (payLoad: TAcademicSemester) => {
   return result;
 };
 
+
+const getAcademicSemesterFromDb = async()=>{
+    const result = await AcademicSemesterModle.find()
+    return result
+}
+const getAcademicSemesterByIdFromDb = async(id :string)=>{
+    const result = await AcademicSemesterModle.findById({_id : id})
+    return result
+}
 export const AcademicSemesterService = {
   createAcademicSemestertoDb,
+  getAcademicSemesterFromDb,
+  getAcademicSemesterByIdFromDb
 };

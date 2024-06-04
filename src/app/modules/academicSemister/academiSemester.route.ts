@@ -18,4 +18,6 @@ router.get(
 
 router.get('/get-academic-semester/:id',AcademicSemesterController.getAcademicSemesterById)
 
+router.patch('/update-academic-semester/:id',AcademicSemesterController.updateAcademicSemester)
+
 export const AcademicSemesterRoute = router;

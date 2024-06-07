@@ -1,13 +1,14 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { AcademicSemesterController } from './academicSemister.controller';
 import ValidationMiddleWar from '../../middlewares/ValidRequest';
-import { AcademicValidation } from './academicSemester.validation';
+import { AcademicSemesterValidation } from './academicSemester.validation';
+
 
 const router = express.Router();
 
 router.post(
   '/create-academic-semester',
-  ValidationMiddleWar(AcademicValidation.createAcamdemicSemesterValidaiton),
+  ValidationMiddleWar(AcademicSemesterValidation.createAcamdemicSemesterValidaiton),
   AcademicSemesterController.createAcademicSemester,
 );
 
@@ -17,5 +18,7 @@ router.get(
 );
 
 router.get('/get-academic-semester/:id',AcademicSemesterController.getAcademicSemesterById)
+
+router.patch('/update-academic-semester/:id',ValidationMiddleWar(AcademicSemesterValidation.updateAcamdemicSemesterValidaiton),AcademicSemesterController.updateAcademicSemester)
 
 export const AcademicSemesterRoute = router;

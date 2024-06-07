@@ -22,7 +22,7 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
 
 
   const admissionSemester = await AcademicSemesterModle.findById(payload.admissionSemester)
-  userData.id = generateStudentId(admissionSemester)
+  userData.id = await generateStudentId(admissionSemester)
   // create a user
   const newUser = await User.create(userData);
 
@@ -31,8 +31,9 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     // set id , _id as user
     payload.id = newUser.id;
     payload.user = newUser._id; //reference _id
-
+   console.log(payload)
     const newStudent = await Student.create(payload);
+    console.log(payload)
     return newStudent;
   }
 };

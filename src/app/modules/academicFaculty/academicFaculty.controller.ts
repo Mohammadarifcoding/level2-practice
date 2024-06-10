@@ -13,7 +13,7 @@ const createAcademicFaculty: RequestHandler = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic Semester is created succesfully',
+    message: 'Academic Faculty is created succesfully',
     data: result,
   });
 });
@@ -25,7 +25,7 @@ const getAcademicFaculty : RequestHandler = catchAsync(async (req,res)=>{
   sendResponse(res , {
     statusCode : httpStatus.OK,
     success:true,
-    message:'Academic Semester fetched Successfully',
+    message:'Academic Faculty fetched Successfully',
     data: result
   })
 })
@@ -37,7 +37,7 @@ const getAcademicFacultyById : RequestHandler = catchAsync(async (req,res)=>{
  return sendResponse(res , {
     statusCode : httpStatus.NOT_FOUND,
     success:true,
-    message:"Couldn't found Academic Semester",
+    message:"Couldn't found Academic Faculty",
     data: result
   })
  }
@@ -45,7 +45,7 @@ const getAcademicFacultyById : RequestHandler = catchAsync(async (req,res)=>{
   sendResponse(res , {
     statusCode : httpStatus.OK,
     success:true,
-    message:'Academic Semester fetched by ID Successfully',
+    message:'Academic Faculty fetched by ID Successfully',
     data: result
   })
 })
@@ -57,7 +57,7 @@ const updateAcademicFaculty:RequestHandler = catchAsync(async(req,res)=>{
    sendResponse(res,{
     statusCode:httpStatus.OK,
     success:true,
-    message:'Academic Semester Updated Successfully',
+    message:'Academic Faculty Updated Successfully',
     data:result
    })
 })

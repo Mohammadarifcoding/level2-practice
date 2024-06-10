@@ -1,5 +1,4 @@
 import ValidationMiddleWar from "../../middlewares/ValidRequest";
-import { AcademicSemesterValidation } from "../academicSemister/academicSemester.validation";
 import { AcademicFacultyController } from "./academicFaculty.controller";
 import { AcademicFacultyValidation } from "./academicFaculty.validation";
 import express from 'express'
@@ -17,8 +16,8 @@ router.get(
   AcademicFacultyController.getAcademicFaculty,
 );
 
-router.get('/get-academic-facult/:id',AcademicFacultyController.getAcademicFacultyById)
+router.get('/get-academic-faculty/:id',AcademicFacultyController.getAcademicFacultyById)
 
-router.patch('/update-academic-faculty/:id',ValidationMiddleWar(AcademicSemesterValidation.updateAcamdemicSemesterValidaiton),AcademicFacultyController.updateAcademicFaculty)
+router.patch('/update-academic-faculty/:id',ValidationMiddleWar(AcademicFacultyValidation.createAcademicFacultyValidation),AcademicFacultyController.updateAcademicFaculty)
 
-export const AcademicSemesterRoute = router;
+export const AcademicFacultyRoute = router;

@@ -11,14 +11,23 @@ export const findLastStudentId = async()=>{
 }).sort({
     createdAt : -1
 }).lean()
-return lastStudent?.id ? lastStudent.id.substring(6) : undefined
+return lastStudent?.id 
 }
 
 
 
 export const generateStudentId = async(payload:TAcademicSemester)=>{
-    console.log(await findLastStudentId())
-    const currentId = await findLastStudentId() || (0).toString()
+    // console.log(await findLastStudentId())
+    let currentId =  (0).toString()
+    const lastStudentId  = await findLastStudentId()
+    const lastStudentSemesterCode = lastStudentId?.substring(4,6)
+    const lastStudentYear = lastStudentId?.substring(0,4)
+    const currentSemesterCode = payload.code ;
+    const currentYear = payload.year
+    console.log({lastStudentId,lastStudentSemesterCode,lastStudentYear,currentSemesterCode,currentYear})
+  if(lastStudentId && lastStudentSemesterCode === currentSemesterCode && lastStudentYear === currentYear){
+   currentId = lastStudentId.substring(6)
+  }
     let incrementId = (Number(currentId)+1).toString().padStart(4,'0')
     console.log(incrementId)
     incrementId = `${payload.year}${payload.code}${incrementId}`

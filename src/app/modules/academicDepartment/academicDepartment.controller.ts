@@ -14,7 +14,7 @@ const createAcademicDepartment: RequestHandler = catchAsync(async (req, res) => 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic Faculty is created succesfully',
+    message: 'Academic Department is created succesfully',
     data: result,
   });
 });
@@ -26,7 +26,7 @@ const getAcademicDepartment : RequestHandler = catchAsync(async (req,res)=>{
   sendResponse(res , {
     statusCode : httpStatus.OK,
     success:true,
-    message:'Academic Faculty fetched Successfully',
+    message:'Academic Department fetched Successfully',
     data: result
   })
 })
@@ -38,7 +38,7 @@ const getAcademicDepartmentById : RequestHandler = catchAsync(async (req,res)=>{
  return sendResponse(res , {
     statusCode : httpStatus.NOT_FOUND,
     success:true,
-    message:"Couldn't found Academic Faculty",
+    message:"Couldn't found Academic Department",
     data: result
   })
  }
@@ -46,7 +46,7 @@ const getAcademicDepartmentById : RequestHandler = catchAsync(async (req,res)=>{
   sendResponse(res , {
     statusCode : httpStatus.OK,
     success:true,
-    message:'Academic Faculty fetched by ID Successfully',
+    message:'Academic Department fetched by ID Successfully',
     data: result
   })
 })
@@ -58,7 +58,7 @@ const updateAcademicDepartment:RequestHandler = catchAsync(async(req,res)=>{
    sendResponse(res,{
     statusCode:httpStatus.OK,
     success:true,
-    message:'Academic Faculty Updated Successfully',
+    message:'Academic Department Updated Successfully',
     data:result
    })
 })

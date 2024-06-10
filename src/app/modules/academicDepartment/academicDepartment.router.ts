@@ -1,6 +1,4 @@
-
 import express from 'express'
-
 import ValidationMiddleWar from '../../middlewares/ValidRequest';
 import { AcademicDepartmentValidation } from './academicDepartment.validation';
 import { AcademicDepartmentController } from './academicDepartment.controller';

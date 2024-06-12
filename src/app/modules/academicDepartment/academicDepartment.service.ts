@@ -11,11 +11,11 @@ const createAcademicDepartmenttoDb = async (payLoad: TAcademicDepartment) => {
   
   
   const getAcademicDepartmentFromDb = async()=>{
-      const result = await AcademicDepartmentModel.find()
+      const result = await AcademicDepartmentModel.find().populate('academicFaculty')
       return result
   }
   const getAcademicDepartmentByIdFromDb = async(id :string)=>{
-      const result = await AcademicDepartmentModel.findById({_id : id})
+      const result = await AcademicDepartmentModel.findById({_id : id}).populate('academicFaculty')
       return result
   }
   const updateAcademicDepartmentFromDb = async(id:string,payLoad:Partial<TAcademicDepartment>)=>{

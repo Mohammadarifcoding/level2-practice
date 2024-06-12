@@ -3,7 +3,7 @@ import { AcademicDepartmentModel } from "./academicDepartment.model";
 
 
 const createAcademicDepartmenttoDb = async (payLoad: TAcademicDepartment) => {
-
+  
     const result = await AcademicDepartmentModel.create(payLoad);
   
     return result;

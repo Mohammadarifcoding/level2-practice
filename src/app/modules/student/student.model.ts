@@ -7,6 +7,9 @@ import {
   TUserName,
 } from './student.interface';
 
+import AppError from '../../errors/AppError';
+import httpStatus from 'http-status';
+
 const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
@@ -176,9 +179,29 @@ studentSchema.pre('aggregate', function (next) {
 });
 
 //creating a custom static method
-studentSchema.statics.isUserExists = async function (id: string) {
-  const existingUser = await Student.findOne({ id });
-  return existingUser;
-};
+// studentSchema.statics.isUserExists = async function (id: string) {
+//   const existingUser = await Student.findOne({ id });
+//   return existingUser;
+// };
+
+
+// Apply the pre-hook for all relevant query methods
+studentSchema.pre('findOneAndUpdate', async function (next) {
+  try {
+    const query = this.getQuery();
+    const studentId = query.id;
+
+    if (studentId) {
+      const findTheStudent = await Student.findOne({ id: studentId });
+      
+      if (!findTheStudent) {
+        throw new AppError(httpStatus.NOT_FOUND, "This id doesn't match");
+      }
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 export const Student = model<TStudent, StudentModel>('Student', studentSchema);

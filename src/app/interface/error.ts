@@ -4,4 +4,10 @@ type TErrorSource = {
   };
 
 
+ export type tGenericErrorResponse = {
+    statusCode : number,
+    message: string,
+    errorSources:TErrorSource[],
+}
+
 export default TErrorSource

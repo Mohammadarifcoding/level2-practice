@@ -10,6 +10,7 @@ import handleZodError from '../errors/handleZodError';
 import handleMongooseError from '../errors/handleValidationError';
 import handleCastError from '../errors/handleCastError';
 import handleDuplicateError from '../errors/handleDuplicateError';
+import AppError from '../errors/AppError';
 
 const globalErrorHandler: ErrorRequestHandler = (
   err: any,
@@ -52,6 +53,13 @@ const globalErrorHandler: ErrorRequestHandler = (
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorSources = simplifiedError.errorSources;
+  }
+  else if(err instanceof AppError){
+    message = err.message;
+    errorSources = [{
+      path:'',
+      message:err.message
+    }]
   }
    
   return res.status(statusCode).json({

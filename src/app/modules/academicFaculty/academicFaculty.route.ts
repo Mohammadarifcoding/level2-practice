@@ -1,23 +1,28 @@
-import ValidationMiddleWar from "../../middlewares/ValidRequest";
-import { AcademicFacultyController } from "./academicFaculty.controller";
-import { AcademicFacultyValidation } from "./academicFaculty.validation";
-import express from 'express'
+import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
+import { AcademicFacultyControllers } from './academicFaculty.controller';
+import { AcademicFacultyValidation } from './academicFaculty.validation';
 
 const router = express.Router();
 
 router.post(
   '/create-academic-faculty',
-  ValidationMiddleWar(AcademicFacultyValidation.createAcademicFacultyValidation),
-  AcademicFacultyController.createAcademicFaculty,
+  validateRequest(
+    AcademicFacultyValidation.createAcademicFacultyValidationSchema,
+  ),
+  AcademicFacultyControllers.createAcademicFaculty,
 );
 
-router.get(
-  '/get-academic-faculty',
-  AcademicFacultyController.getAcademicFaculty,
+router.get('/:facultyId', AcademicFacultyControllers.getSingleAcademicFaculty);
+
+router.patch(
+  '/:facultyId',
+  validateRequest(
+    AcademicFacultyValidation.updateAcademicFacultyValidationSchema,
+  ),
+  AcademicFacultyControllers.updateAcademicFaculty,
 );
 
-router.get('/get-academic-faculty/:id',AcademicFacultyController.getAcademicFacultyById)
+router.get('/', AcademicFacultyControllers.getAllAcademicFaculties);
 
-router.patch('/update-academic-faculty/:id',ValidationMiddleWar(AcademicFacultyValidation.createAcademicFacultyValidation),AcademicFacultyController.updateAcademicFaculty)
-
-export const AcademicFacultyRoute = router;
+export const AcademicFacultyRoutes = router;

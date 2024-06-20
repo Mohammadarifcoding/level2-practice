@@ -7,9 +7,6 @@ import {
   TUserName,
 } from './student.interface';
 
-import AppError from '../../errors/AppError';
-import httpStatus from 'http-status';
-
 const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
@@ -113,7 +110,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       type: String,
       required: [true, 'Emergency contact number is required'],
     },
-    bloodGroup: {
+    bloogGroup: {
       type: String,
       enum: {
         values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
@@ -141,14 +138,14 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       type: Schema.Types.ObjectId,
       ref: 'AcademicSemester',
     },
-    admissionDepartment: {
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    academicDepartment: {
       type: Schema.Types.ObjectId,
       ref: 'AcademicDepartment',
     },
-    // isDeleted: {
-    //   type: Boolean,
-    //   default: false,
-    // },
   },
   {
     toJSON: {
@@ -157,9 +154,9 @@ const studentSchema = new Schema<TStudent, StudentModel>(
   },
 );
 
-// virtual
+//virtual
 studentSchema.virtual('fullName').get(function () {
-  return this.name.firstName + this.name.middleName + this.name.lastName;
+  return this?.name?.firstName + this?.name?.middleName + this?.name?.lastName;
 });
 
 // Query Middleware
@@ -179,29 +176,9 @@ studentSchema.pre('aggregate', function (next) {
 });
 
 //creating a custom static method
-// studentSchema.statics.isUserExists = async function (id: string) {
-//   const existingUser = await Student.findOne({ id });
-//   return existingUser;
-// };
-
-
-// Apply the pre-hook for all relevant query methods
-studentSchema.pre('findOneAndUpdate', async function (next) {
-  try {
-    const query = this.getQuery();
-    const studentId = query.id;
-
-    if (studentId) {
-      const findTheStudent = await Student.findOne({ id: studentId });
-      
-      if (!findTheStudent) {
-        throw new AppError(httpStatus.NOT_FOUND, "This id doesn't match");
-      }
-    }
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
+studentSchema.statics.isUserExists = async function (id: string) {
+  const existingUser = await Student.findOne({ id });
+  return existingUser;
+};
 
 export const Student = model<TStudent, StudentModel>('Student', studentSchema);

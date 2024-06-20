@@ -1,16 +1,13 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
+import { createStudentValidationSchema } from './../student/student.validation';
 import { UserControllers } from './user.controller';
-import { AnyZodObject } from 'zod';
-
-import catchAsync from '../../utils/catchAsync';
-import ValidationMiddleWar from '../../middlewares/ValidRequest';
-import { createStudentValidationSchema } from '../student/student.validation';
 
 const router = express.Router();
 
 router.post(
   '/create-student',
-  ValidationMiddleWar(createStudentValidationSchema),
+  validateRequest(createStudentValidationSchema),
   UserControllers.createStudent,
 );
 

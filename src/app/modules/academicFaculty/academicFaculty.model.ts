@@ -1,17 +1,20 @@
-
 import { Schema, model } from 'mongoose';
 import { TAcademicFaculty } from './academicFaculty.interface';
-const AcademicFacultySchema = new Schema<TAcademicFaculty>(
+
+const academicFacultySchema = new Schema<TAcademicFaculty>(
   {
-    name:{
-        type:String,
-        required:true,
-        unique:true
-    }
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
   {
     timestamps: true,
   },
 );
 
-export const AcademicFacultyModel = model<TAcademicFaculty>('AcademicFaculty', AcademicFacultySchema);
+export const AcademicFaculty = model<TAcademicFaculty>(
+  'AcademicFaculty',
+  academicFacultySchema,
+);

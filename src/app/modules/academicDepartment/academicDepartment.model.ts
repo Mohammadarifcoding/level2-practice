@@ -1,18 +1,19 @@
-
+import httpStatus from 'http-status';
 import { Schema, model } from 'mongoose';
-import { TAcademicDepartment } from './academicDepartment.interface';
 import AppError from '../../errors/AppError';
-const AcademicDepartmentSchema = new Schema<TAcademicDepartment>(
+import { TAcademicDepartment } from './academicDepartment.interface';
+
+const academicDepartmentSchema = new Schema<TAcademicDepartment>(
   {
-    name:{
-        type:String,
-        required:true,
-        unique:true
+    name: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    academicFaculty:{
-        type:Schema.Types.ObjectId,
-        ref:'AcademicFaculty'
-    }
+    academicFaculty: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicFaculty',
+    },
   },
   {
     timestamps: true,
@@ -20,24 +21,36 @@ const AcademicDepartmentSchema = new Schema<TAcademicDepartment>(
 );
 
 
+academicDepartmentSchema.pre('save', async function (next) {
+  const isDepartmentExist = await AcademicDepartment.findOne({
+    name: this.name,
+  });
 
-
-AcademicDepartmentSchema.pre('save',async function(next){
-  const isDepartMentExists = await AcademicDepartmentModel.findOne({name:this.name})
-  if(isDepartMentExists){
-   throw new AppError(404,'Department already exists')
+  if (isDepartmentExist) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      'This department is already exist!',
+    );
   }
-  next()
-})
 
-AcademicDepartmentSchema.pre('findOneAndUpdate',async function(next) {
-   const query = this.getQuery()
-   const isDepartMentExists = await AcademicDepartmentModel.findOne(query)
-  if(!isDepartMentExists){
-   throw new AppError(404,'Department already exists')
+  next();
+});
+
+academicDepartmentSchema.pre('findOneAndUpdate', async function (next) {
+  const query = this.getQuery();
+  const isDepartmentExist = await AcademicDepartment.findOne(query);
+
+  if (!isDepartmentExist) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      'This department does not exist! ',
+    );
   }
-  next()
-})
 
+  next();
+});
 
-export const AcademicDepartmentModel = model<TAcademicDepartment>('AcademicDepartment', AcademicDepartmentSchema);
+export const AcademicDepartment = model<TAcademicDepartment>(
+  'AcademicDepartment',
+  academicDepartmentSchema,
+);

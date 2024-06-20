@@ -22,11 +22,11 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
   //  Filtering
 
-  const excludeFields = ['searchTerm', 'page', 'sort','limit'];
+  const excludeFields = ['searchTerm', 'page', 'sort', 'limit'];
 
   excludeFields.forEach((el) => delete queryObj[el]);
 
-  const filterQuery =  searchQuery
+  const filterQuery = searchQuery
     .find(queryObj)
     .populate('admissionSemester')
     .populate({
@@ -35,19 +35,26 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
         path: 'academicFaculty',
       },
     });
-  let sort = '-createdAt'
-  if(query.sort){
-    sort = query.sort as string
+  let sort = '-createdAt';
+  if (query.sort) {
+    sort = query.sort as string;
   }
-  const sortQuery = filterQuery.sort(sort)
+  const sortQuery = filterQuery.sort(sort);
 
+  let page = 1;
+  let limit = 1;
+  let skip =0
+  if(query.page){
+    page = Number(query.page)
+    skip = (page - 1)*limit
+  }
+  if (query.limit) {
+    limit = Number(query.limit) as number;
+  }
+  const paginateQuery = sortQuery.skip(skip)
+  
 
-  let limit = 1
-   if(query.limit){
-    limit = query.limit as number
-   }
-
-   const limitQuery = await sortQuery.limit(limit)
+  const limitQuery = await paginateQuery.limit(limit);
   return limitQuery;
 };
 
@@ -60,9 +67,6 @@ const getSingleStudentFromDB = async (id: string) => {
         path: 'academicFaculty',
       },
     });
-
-
-
 
   return result;
 };

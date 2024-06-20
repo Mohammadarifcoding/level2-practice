@@ -4,4 +4,4 @@ type TErrorSource = {
   };
 
 
-  export default TErrorSource
+export default TErrorSource

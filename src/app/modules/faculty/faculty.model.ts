@@ -121,6 +121,6 @@ const userNameSchema = new Schema<TUserName>({
     return existingUser;
   };
   
-  export const Faculty = model<TFaculty, FacultyModel>('Student', facultySchema);
+  export const Faculty = model<TFaculty, FacultyModel>('Faculty', facultySchema);
   
   

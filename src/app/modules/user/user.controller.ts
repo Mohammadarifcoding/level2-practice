@@ -17,6 +17,11 @@ const createStudent = catchAsync(async (req, res) => {
   });
 });
 
+const createFaculty = catchAsync(async(req,res)=>{
+ const {password,faculty: facultyData} = req.body
+ 
+})
+
 export const UserControllers = {
-  createStudent,
+  createStudent,createFaculty
 };

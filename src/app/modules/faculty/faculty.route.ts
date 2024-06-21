@@ -1,18 +1,21 @@
 import validateRequest from "../../middlewares/validateRequest";
+import { FacultyControllers } from "./faculty.controller";
+import { updateFacultyValidationSchema } from "./faculty.validation";
+import express from 'express'
 
 
 const router = express.Router();
 
-router.get('/:studentId', StudentControllers.getSingleStudent);
+router.get('/:FacultyId', FacultyControllers.getSingleFaculty);
 
 router.patch(
-  '/:studentId',
-  validateRequest(updateStudentValidationSchema),
-  StudentControllers.updateStudent,
+  '/:FacultyId',
+  validateRequest(updateFacultyValidationSchema),
+  FacultyControllers.updateFaculty,
 );
 
-router.delete('/:studentId', StudentControllers.deleteStudent);
+router.delete('/:FacultyId', FacultyControllers.deleteFaculty);
 
-router.get('/', StudentControllers.getAllStudents);
+router.get('/', FacultyControllers.getAllFacultys);
 
-export const StudentRoutes = router;
+export const FacultyRoutes = router;

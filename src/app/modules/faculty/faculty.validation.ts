@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { BloodGroup, Gender } from './faculty.constant';
+import { BloodGroup, Gender } from './facult.constant';
+
 
 const createUserNameValidationSchema = z.object({
   firstName: z

@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 import AppError from '../../errors/AppError';
 
 import QueryBuilder from '../../builder/QueryBuilder';
@@ -10,14 +10,7 @@ import { User } from '../user/user.model';
 
 const getAllFacultysFromDB = async (query: Record<string, unknown>) => {
   const FacultyQuery = new QueryBuilder(
-    Faculty.find()
-      .populate('admissionSemester')
-      .populate({
-        path: 'academicDepartment',
-        populate: {
-          path: 'academicFaculty',
-        },
-      }),
+    Faculty.find().populate('academicDepartment'),
     query,
   )
     .search(FacultySearchableFields)

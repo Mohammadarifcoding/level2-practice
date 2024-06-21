@@ -110,7 +110,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       type: String,
       required: [true, 'Emergency contact number is required'],
     },
-    bloogGroup: {
+    bloodGroup: {
       type: String,
       enum: {
         values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
@@ -182,8 +182,3 @@ studentSchema.statics.isUserExists = async function (id: string) {
 };
 
 export const Student = model<TStudent, StudentModel>('Student', studentSchema);
-
-
-
-
-

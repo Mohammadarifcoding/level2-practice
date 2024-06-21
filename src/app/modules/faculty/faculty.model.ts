@@ -117,10 +117,10 @@ const userNameSchema = new Schema<TUserName>({
   
   //creating a custom static method
   facultySchema.statics.isUserExists = async function (id: string) {
-    const existingUser = await Student.findOne({ id });
+    const existingUser = await Faculty.findOne({ id });
     return existingUser;
   };
   
-  export const Student = model<TFaculty, FacultyModel>('Student', facultySchema);
+  export const Faculty = model<TFaculty, FacultyModel>('Student', facultySchema);
   
   

@@ -117,7 +117,7 @@ const deleteFacultyFromDB = async (id: string) => {
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error('Failed to delete faculty');
+    throw new Error(err);
   }
 };
 

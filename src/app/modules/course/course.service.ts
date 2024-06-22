@@ -6,23 +6,24 @@ const createCourseIntoDb = async (payload:TCourse) => {
   return result;
 };
 
-const getAllCoursesFromDb = async (query:any) => {
+const getAllCoursesFromDb = async (query : Record<string, unknown>) => {
   const result = await Course.find(query);
   return result;
 };
 
-const getSingleCourseFromDb = async (id) => {
+const getSingleCourseFromDb = async (id:string) => {
   const result = await Course.findById(id);
   return result;
 };
 
-const updateCourseFromDb = async (id: string, payload) => {
+const updateCourseFromDb = async (id: string, payload:TCourse) => {
   const result = await Course.findByIdAndUpdate(id, payload);
   return result;
 };
 
-const deleteCourseFromDb = async(id)=>{
+const deleteCourseFromDb = async(id:string)=>{
     const result = await Course.findByIdAndUpdate(id,{isDeleted:true})
+    return result
 }
 
 

@@ -12,6 +12,7 @@ import { TFaculty } from '../faculty/faculty.interface';
 import { Faculty } from '../faculty/faculty.model';
 import { AcademicDepartment } from '../academicDepartment/academicDepartment.model';
 import { Admin } from '../admin/admin.model';
+import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // create a user object
@@ -33,7 +34,7 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
   try {
     session.startTransaction();
     //set  generated id
-    userData.id = await generateStudentId(admissionSemester);
+    userData.id = await generateStudentId(admissionSemester as TAcademicSemester);
 
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session }); // array
@@ -102,7 +103,8 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
     await session.commitTransaction();
     await session.endSession();
     return newFaculty
-  } catch (err) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err:any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);
@@ -147,7 +149,8 @@ const createAdminIntoDB = async (password: string, payload: TFaculty) => {
     await session.endSession();
 
     return newAdmin;
-  } catch (err) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} catch (err:any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);
